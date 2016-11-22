@@ -86,6 +86,7 @@ if($new_event!=null){
     echo "No se ha podido insertar el evento";
 }
 
+//http://anexsoft.com/p/61/realizando-un-crud-con-el-patron-mvc-en-php
 
 // http://blogs.ua.es/labseps/2014/10/17/insertar-un-evento-en-un-calendario-publico-de-google-con-php-y-la-api-v3/
 // https://developers.google.com/google-apps/calendar/v3/reference/events/insert
