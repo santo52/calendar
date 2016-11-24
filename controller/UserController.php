@@ -15,29 +15,12 @@ class UserController {
     public function getIsAjax(){
         return $this->isAjax;
     }
-
-    public function redirect($location) {
-        header('Location: '.$location);
-    }
     
     public function handleRequest() {
         try {
-            if (!$this->getIsAjax()){
-                $handle = isset($_GET['handle'] )?$_GET['handle'] :NULL;
+            $handle = isset($_REQUEST['handle'] )?$_REQUEST['handle'] :NULL;
 
-                if (!$handle || $handle == 'list') {
-                    $this->listContacts();
-                } elseif ($handle == 'new') {
-                    $this->saveContact();
-                } elseif ($handle == 'delete') {
-                    $this->deleteContact();
-                } elseif ($handle == 'show') {
-                    $this->showContact();
-                } else {
-                    $this->showError("Pagina no encontrada", "Pagina para la operacion " . $op . " no fue encontrada!");
-                }
-            } else{
-                $handle = isset($_REQUEST['handle'] )?$_REQUEST['handle'] :NULL;
+            if($this->getIsAjax()){
                 if (!$handle || $handle == 'edit') {
                     echo json_encode($this->contactsService->getContact($_REQUEST['id']));
                 } elseif($handle == 'createPost'){
@@ -48,9 +31,18 @@ class UserController {
                     $calendar = new CalendarController();
                     echo json_encode($calendar->create($_REQUEST['all']['title'], $_REQUEST['all']['description'], $_REQUEST['all']['start'], $_REQUEST['all']['end']));
                 }
+            } else {
+
+                if (!$handle || $handle == 'list') {
+                    $this->listContacts();
+                } elseif ($handle == 'delete') {
+                    $this->deleteContact();
+                } else {
+                    $this->showError("Pagina no encontrada", "Pagina para la operacion " . $op . " no fue encontrada!");
+                }
             }
+
         } catch ( Exception $e ) {
-            // alcunas excepciones desconocidas se capturan aqui, se usa pagina de error para mostrar el mismo.
             $this->showError("Error en la Application", $e->getMessage());
         }
     }
@@ -60,84 +52,22 @@ class UserController {
         $contacts = $this->contactsService->getAllContacts($orderby);
         include 'view/userList.php';
     }
-    
-    public function saveContact() {
-       
-        $title = 'Nuevo contacto';
-        
-        $name = '';
-        $phone = '';
-        $email = '';
-        $address = '';
-       
-        $errors = array();
-
-        if ( isset($_POST['form-submitted']) ) {
-            
-            $name       = isset($_POST['name']) ?   $_POST['name']  :NULL;
-            $phone      = isset($_POST['phone'])?   $_POST['phone'] :NULL;
-            $email      = isset($_POST['email'])?   $_POST['email'] :NULL;
-            $address    = isset($_POST['address'])? $_POST['address']:NULL;
-
-            try {
-                $this->contactsService->createNewContact($name, $phone, $email, $address);
-                $this->redirect('index.php');
-                return;
-            } catch (Exceptions $e) {
-                $errors = $e->getErrors();
-            }
-        }
-                
-        include 'view/newUser.php';
-    }
- 
-
-
 
     public function deleteContact() {
-        $id = isset($_GET['id'])?$_GET['id']:NULL;
-        if ( !$id ) {
+        $id = isset($_GET['id']) ? $_GET['id'] : NULL;
+        if ( !$id )
             throw new Exception('Internal error.');
-        }
         
         $this->contactsService->deleteContact($id);
-        
         $this->redirect('index.php');
-    }
-    
-    public function showContact() {
-        $id = isset($_GET['id'])?$_GET['id']:NULL;
-        if ( !$id ) {
-            throw new Exception('Internal error.');
-        }
-        
-        $title = 'Actualizar un contacto';
-        
-        if ( isset($_POST['formUpdate-submitted']) ){
-        
-            $id       = isset($_POST['id']) ?   $_POST['id']  :NULL;
-            $name       = isset($_POST['name']) ?   $_POST['name']  :NULL;
-            $phone      = isset($_POST['phone'])?   $_POST['phone'] :NULL;
-            $email      = isset($_POST['email'])?   $_POST['email'] :NULL;
-            $address    = isset($_POST['address'])? $_POST['address']:NULL;
-            
-            try {
-                $this->contactsService->updateContact($id, $name, $phone, $email, $address);
-                $this->redirect('index.php');
-                return;
-            } catch (Exceptions $e) {
-                $errors = $e->getErrors();
-            }
-        }
-        
-
-        $contact = $this->contactsService->getContact($id);
-        
-        include 'view/contact.php';
     }
     
     public function showError($title, $message) {
         include 'view/error.php';
+    }
+
+    public function redirect($location) {
+        header('Location: '.$location);
     }
 }
 ?>

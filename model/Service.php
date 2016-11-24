@@ -1,17 +1,18 @@
 <?php
 
+require_once 'config/config.php';
 require_once 'model/Gateway.php';
 require_once 'model/Exceptions.php';
 
 
-class Service {
+class Service extends Config{
 
-    private $hostname = 'localhost';
-    private $username = 'root';
-    private $password = 'Ogaitnas18';
-    private $con = null;
-    private $contactsGateway    = NULL;
-    
+    private $contactsGateway = NULL;
+
+    public function __construct() {
+        $this->contactsGateway = new Gateway();
+    }
+
     private function openDb() {
         $this->con = mysqli_connect($this->hostname, $this->username, $this->password);
         if(!$this->con){
@@ -25,10 +26,6 @@ class Service {
     
     private function closeDb() {
         mysqli_close($this->con);
-    }
-  
-    public function __construct() {
-        $this->contactsGateway = new Gateway();
     }
     
     public function getAllContacts($order) {

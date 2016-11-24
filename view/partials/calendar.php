@@ -18,5 +18,5 @@ if (isset($_SESSION['access_token'])) {
 }
 
 echo "<div style='margin: 20px auto; width: 500px;'>
-            <iframe src='https://calendar.google.com/calendar/embed?src=unbd5fgdiijq9qtf7iorrvkvos%40group.calendar.google.com&ctz=America/Bogota' style='border: 0' width='100%' height='300' frameborder='0' scrolling='no'></iframe>
-         </div>";
+        <iframe src='https://calendar.google.com/calendar/embed?src=unbd5fgdiijq9qtf7iorrvkvos%40group.calendar.google.com&ctz=America/Bogota' style='border: 0' width='100%' height='300' frameborder='0' scrolling='no'></iframe>
+     </div>";

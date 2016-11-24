@@ -3,9 +3,8 @@
 class Gateway {
     
     public function selectAll($con, $order) {
-        if ( !isset($order) ) {
-            $order = "name";
-        }
+        if ( !isset($order) ) $order = "name";
+
         $dbOrder =  mysqli_real_escape_string($con, $order);
         $dbres = mysqli_query($con, "SELECT * FROM contacts ORDER BY $dbOrder ASC");
         
@@ -19,11 +18,8 @@ class Gateway {
     
     public function selectById($con, $id) {
         $dbId = mysqli_real_escape_string($con, $id);
-        
         $dbres = mysqli_query($con, "SELECT * FROM contacts WHERE id=$dbId");
-        
         return mysqli_fetch_object($dbres);
-		
     }
     
     public function insert($con, $name, $phone, $email, $address ) {
@@ -45,7 +41,6 @@ class Gateway {
         $dbAddress = ($address != NULL)?"'".mysqli_real_escape_string($con, $address)."'":'NULL';
         
         mysqli_query($con, "UPDATE contacts SET name=$dbName , phone=$dbPhone , email=$dbEmail , address=$dbAddress WHERE id=$dbId ");
-        
         return mysqli_insert_id($con);
     }
     
