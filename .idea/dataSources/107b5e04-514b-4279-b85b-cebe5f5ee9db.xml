@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MySQL - agenda@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+    <schema id="1" name="agenda">
+      <visible>1</visible>
+    </schema>
+    <schema id="2" name="#mysql50#root@104.236.200.214"/>
+    <schema id="3" name="agroseller"/>
+    <schema id="4" name="agroseller2"/>
+    <schema id="5" name="agrosellers"/>
+    <schema id="6" name="artico"/>
+    <schema id="7" name="artico2"/>
+    <schema id="8" name="canalinforma2"/>
+    <schema id="9" name="citiconsumo"/>
+    <schema id="10" name="creditos"/>
+    <schema id="11" name="empresario"/>
+    <schema id="12" name="information_schema"/>
+    <schema id="13" name="juanBarranco"/>
+    <schema id="14" name="mysql"/>
+    <schema id="15" name="performance_schema"/>
+    <schema id="16" name="pnt"/>
+    <schema id="17" name="sotano"/>
+    <schema id="18" name="sys"/>
+    <table id="19" parent="1" name="contacts"/>
+    <column id="20" parent="19" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(11)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="21" parent="19" name="name">
+      <mandatory>1</mandatory>
+      <data-type>varchar(128)|0</data-type>
+    </column>
+    <column id="22" parent="19" name="phone">
+      <data-type>varchar(64)|0</data-type>
+    </column>
+    <column id="23" parent="19" name="email">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="24" parent="19" name="address">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <key id="25" parent="19" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+  </database-model>
+</dataSource>

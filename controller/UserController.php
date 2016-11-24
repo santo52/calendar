@@ -42,9 +42,11 @@ class UserController {
                     echo json_encode($this->contactsService->getContact($_REQUEST['id']));
                 } elseif($handle == 'createPost'){
                     $this->contactsService->createNewContact($_REQUEST['all']['name'], $_REQUEST['all']['phone'], $_REQUEST['all']['email'], $_REQUEST['all']['address']);
-                } else{
+                } elseif($handle == 'editPost'){
                     echo json_encode($this->contactsService->updateContact($_REQUEST['all']['id'], $_REQUEST['all']['name'], $_REQUEST['all']['phone'], $_REQUEST['all']['email'], $_REQUEST['all']['address']));
-
+                } elseif($handle == 'createCalendar'){
+                    $calendar = new CalendarController();
+                    echo json_encode($calendar->create($_REQUEST['all']['title'], $_REQUEST['all']['description'], $_REQUEST['all']['start'], $_REQUEST['all']['end']));
                 }
             }
         } catch ( Exception $e ) {

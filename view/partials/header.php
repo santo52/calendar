@@ -6,5 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Contactos</title>
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="../public/css/styles.css">
 </head>
